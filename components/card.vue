@@ -1,7 +1,7 @@
 <template>
 <v-container>
   <v-row>
-    <v-col v-for="(card, index) in cards" :key="index" cols="12" md="4">
+    <v-col v-for="(item, index) in items" :key="index" cols="12" md="4" sm="4">
           <v-card
     :loading="loading"
     class="mx-auto my-12"
@@ -17,10 +17,10 @@
 
     <v-img
       height="250"
-      src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+      src="https://granhoteldelaciudaddemexico.com.mx/wp-content/uploads/2020/12/IMG_8107-1.png"
     ></v-img>
 
-    <v-card-title>{{ card.title }}</v-card-title>
+    <v-card-title>{{ item.name }}</v-card-title>
 
     <v-card-text>
       <v-row
@@ -28,7 +28,7 @@
         class="mx-0"
       >
         <v-rating
-          :value="4"
+          :value="item.rating"
           color="amber"
           dense
           half-increments
@@ -37,12 +37,12 @@
         ></v-rating>
 
         <div class="grey--text ms-4">
-          4.5
+          {{item.rating}}
         </div>
       </v-row>
 
       <div class="my-4 text-subtitle-1">
-        $ • Italian, Cafe
+        $ • Restaurante
       </div>
 
       <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
@@ -74,15 +74,41 @@
 export default {
   data() {
     return {
-      cards: [
-        { title: 'Card 1', description: 'Description for card 1' },
-        { title: 'Card 2', description: 'Description for card 2' },
-        { title: 'Card 3', description: 'Description for card 3' },
-        { title: 'Card 3', description: 'Description for card 3' },
-        { title: 'Card 3', description: 'Description for card 3' },
-      ]
+       items: [],
+       name: null,
+
     };
   },
+   mounted() {
+    this.getData()
+  },
+  methods: {
+
+    /* OBTENEMOS EL ARREGLO DE LA PETICIÓN GET */
+
+
+    getData(){
+      this.$axios
+        .get('https://recruiting-datasets.s3.us-east-2.amazonaws.com/data_melp.json' ,{
+        })
+        .then((response) =>{
+          console.log(response)
+          const obj = response.data
+          const tamano = obj.length
+          for (let i = 0; i < tamano; i++){
+            const objeto = {
+              name: obj[i].name,
+              rating: obj[i].rating
+            }
+            this.items.push(objeto)
+          }
+           alert(tamano)
+        })
+    }
+
+
+
+  }
 };
 </script>
 

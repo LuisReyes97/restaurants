@@ -14,8 +14,10 @@
     </v-icon>
       <v-toolbar-title class="title">{{ title }}</v-toolbar-title>
       <v-spacer/>
-      <v-card-subtitle>Inicio</v-card-subtitle>
+      <v-card-subtitle rou>Inicio</v-card-subtitle>
       <v-card-subtitle>Restaurantes</v-card-subtitle>
+      <v-card-subtitle>Contacto</v-card-subtitle>
+
 
     </v-app-bar>
     <v-main>

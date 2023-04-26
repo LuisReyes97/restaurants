@@ -3,7 +3,7 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: 'restaurants',
+    titleTemplate: 'Restaurants',
     title: 'restaurants',
     meta: [
       { charset: 'utf-8' },
@@ -45,6 +45,10 @@ export default {
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: '/',
+    proxy: true,
+  },
+  proxy: {
+    '/api/': { target: 'https://recruiting-datasets.s3.us-east-2.amazonaws.com/data_melp.json', pathRewrite: { '^/api/': '' } },
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa

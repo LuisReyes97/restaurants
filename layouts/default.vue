@@ -1,14 +1,21 @@
 <template>
   <v-app dark>
-
     <v-app-bar
       :clipped-left="clipped"
       fixed
       app
+      color="orange darken-1"
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title>{{ title }}</v-toolbar-title>
-      <v-spacer />
+    <v-icon
+      large
+      color="orange lighten-5"
+    >
+      mdi-silverware-fork-knife
+    </v-icon>
+      <v-toolbar-title class="title">{{ title }}</v-toolbar-title>
+      <v-spacer/>
+      <v-card-subtitle>Inicio</v-card-subtitle>
+      <v-card-subtitle>Restaurantes</v-card-subtitle>
 
     </v-app-bar>
     <v-main>
@@ -33,12 +40,14 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-footer
-      :absolute="!fixed"
-      app
+<v-footer padless>
+    <v-col
+      class="text-center"
+      cols="12"
     >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
+      {{ new Date().getFullYear() }} — <strong>Luis Reyes</strong>
+    </v-col>
+  </v-footer>
   </v-app>
 </template>
 
@@ -60,13 +69,26 @@ export default {
           icon: 'mdi-chart-bubble',
           title: 'Inspire',
           to: '/inspire'
-        }
+        },
+
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Restaurantes'
+      title: 'Melp'
     }
   }
 }
 </script>
+
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Montserrat:wght@500&display=swap');
+  .title{
+    font-family: 'Dancing Script', cursive;
+    color: #F5F5F5;
+  }
+
+</style>
+
+

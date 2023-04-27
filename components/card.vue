@@ -1,7 +1,29 @@
 <template>
 <v-container>
   <v-row>
-    <v-col v-for="(item, index) in items" :key="index" cols="12" md="4" sm="4">
+    <v-col cols="8" md="4">
+      <v-text-field
+      outlined
+      label="Buscar restaurante"
+      dense
+      prepend-icon="mdi-magnify"
+      ></v-text-field>
+    </v-col>
+    <v-col cols="4" md="4">
+      <v-btn @click="sortByName">Ordenar por Nombre</v-btn>
+    </v-col>
+    <v-col cols="4" md="4">
+      <v-btn @click="sortByRaiting">Ordenar por Calificación</v-btn>
+    </v-col>
+  </v-row>
+
+
+
+
+  <v-row>
+
+
+    <v-col  :search="search" v-for="(item, index) in items" :key="index" cols="12" md="4" sm="4">
           <v-card
     :loading="loading"
     class="mx-auto my-12"
@@ -17,7 +39,7 @@
 
     <v-img
       height="250"
-      src="https://granhoteldelaciudaddemexico.com.mx/wp-content/uploads/2020/12/IMG_8107-1.png"
+      src="https://cdn.foodandwineespanol.com/2019/01/regresar_comida.jpg"
     ></v-img>
 
     <v-card-title>{{ item.name }}</v-card-title>
@@ -62,7 +84,10 @@
         Ubicación
       </v-btn>
     </v-card-actions>
+
+
   </v-card>
+
     </v-col>
   </v-row>
 </v-container>
@@ -75,18 +100,20 @@ export default {
   data() {
     return {
        items: [],
-       name: null,
-
+       coordinates: null,
+       search: '',
     };
   },
    mounted() {
     this.getData()
+
+
+
+
   },
   methods: {
 
     /* OBTENEMOS EL ARREGLO DE LA PETICIÓN GET */
-
-
     getData(){
       this.$axios
         .get('https://recruiting-datasets.s3.us-east-2.amazonaws.com/data_melp.json' ,{
@@ -94,17 +121,26 @@ export default {
         .then((response) =>{
           console.log(response)
           const obj = response.data
+
           const tamano = obj.length
           for (let i = 0; i < tamano; i++){
             const objeto = {
               name: obj[i].name,
-              rating: obj[i].rating
+              rating: obj[i].rating,
+              lat: obj[i].address.location.lat,
+              lng: obj[i].address.location.lng
             }
             this.items.push(objeto)
           }
-           alert(tamano)
+           alert(response.data[0].address.location.lng)
         })
-    }
+    },
+     sortByName() {
+      this.items.sort((a, b) => (a.name > b.name ? 1 : -1));
+    },
+    sortByRaiting() {
+      this.items.sort((a, b) => a.rating - b.rating);
+    },
 
 
 

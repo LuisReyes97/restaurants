@@ -14,8 +14,10 @@
     </v-icon>
       <v-toolbar-title class="title">{{ title }}</v-toolbar-title>
       <v-spacer/>
-      <v-card-subtitle rou>Inicio</v-card-subtitle>
-      <v-card-subtitle>Restaurantes</v-card-subtitle>
+      <router-link class="router-link" to="/"><v-card-subtitle>Inicio</v-card-subtitle></router-link>
+
+      <router-link class="router-link" to="/restaurants"><v-card-subtitle>Restaurantes</v-card-subtitle></router-link>
+
       <v-card-subtitle>Contacto</v-card-subtitle>
 
 
@@ -90,6 +92,13 @@ export default {
     font-family: 'Dancing Script', cursive;
     color: #F5F5F5;
   }
+
+  /* Quitar subrayado de enlaces */
+.router-link {
+  text-decoration: none;
+  color: #F5F5F5;
+}
+
 
 </style>
 

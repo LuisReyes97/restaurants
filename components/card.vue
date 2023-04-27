@@ -1,7 +1,8 @@
 <template>
 <v-container>
+  <!-- botones de filtrados -->
   <v-row>
-    <v-col cols="8" md="4">
+    <v-col cols="12" md="6" sm="6">
       <v-text-field
       outlined
       label="Buscar restaurante"
@@ -9,11 +10,11 @@
       prepend-icon="mdi-magnify"
       ></v-text-field>
     </v-col>
-    <v-col cols="4" md="4">
-      <v-btn @click="sortByName">Ordenar por Nombre</v-btn>
+    <v-col cols="4" md="3" sm="4">
+      <v-btn color="primary" @click="sortByName">Ordenar por Nombre</v-btn>
     </v-col>
-    <v-col cols="4" md="4">
-      <v-btn @click="sortByRaiting">Ordenar por Calificación</v-btn>
+    <v-col cols="4" md="3" sm="4">
+      <v-btn color="success" @click="sortByRaiting">Ordenar por Calificación</v-btn>
     </v-col>
   </v-row>
 
@@ -23,12 +24,12 @@
   <v-row>
 
 
-    <v-col  :search="search" v-for="(item, index) in items" :key="index" cols="12" md="4" sm="4">
-          <v-card
+    <v-col  v-for="(item, index) in items" :key="index" cols="12" md="4" sm="4">
+    <v-card
     :loading="loading"
     class="mx-auto my-12"
     max-width="300"
-  >
+    >
     <template slot="progress">
       <v-progress-linear
         color="deep-purple"
@@ -40,9 +41,13 @@
     <v-img
       height="250"
       src="https://cdn.foodandwineespanol.com/2019/01/regresar_comida.jpg"
-    ></v-img>
+    >
+    </v-img>
 
     <v-card-title>{{ item.name }}</v-card-title>
+
+
+
 
     <v-card-text>
       <v-row
@@ -61,16 +66,42 @@
         <div class="grey--text ms-4">
           {{item.rating}}
         </div>
-      </v-row>
 
+      </v-row>
       <div class="my-4 text-subtitle-1">
-        $ • Restaurante
+        $$ • Buffet libre
       </div>
 
-      <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
+      <div><strong>Opciones de servicios: </strong> Lorem ipsum dolor sit amet consectetur adipisicing elit. </div>
+
     </v-card-text>
 
+    <v-list-item>
+      <v-list-item-icon>
+        <v-icon>mdi-phone</v-icon>
+      </v-list-item-icon>
+      <v-list-item-subtitle>{{item.phone}}</v-list-item-subtitle>
+    </v-list-item>
+
+
+
+
     <v-divider class="mx-4"></v-divider>
+    <v-card-actions class="white justify-center">
+              <v-btn
+                v-for="(social, i) in socials"
+                :key="i"
+                :color="social.color"
+                class="white--text"
+                fab
+                icon
+                small
+                href="fb.com"
+                target="_blank"
+              >
+                <v-icon >{{ social.icon }}</v-icon>
+              </v-btn>
+            </v-card-actions>
 
 
 
@@ -80,16 +111,22 @@
         color="deep-purple lighten-2"
         text
         @click="reserve"
+
       >
         Ubicación
       </v-btn>
+
     </v-card-actions>
+
+
+
 
 
   </v-card>
 
     </v-col>
   </v-row>
+
 </v-container>
 
 
@@ -100,8 +137,22 @@ export default {
   data() {
     return {
        items: [],
-       coordinates: null,
-       search: '',
+       socials: [
+        {
+          icon: 'mdi-facebook',
+          color: 'indigo',
+          url: 'www.facebook.com'
+        },
+        {
+          icon: 'mdi-linkedin',
+          color: 'cyan darken-1',
+        },
+        {
+          icon: 'mdi-instagram',
+          color: 'red lighten-3',
+        },
+      ],
+
     };
   },
    mounted() {
@@ -127,12 +178,16 @@ export default {
             const objeto = {
               name: obj[i].name,
               rating: obj[i].rating,
+              site: obj[i].contact.site,
+              email: obj[i].contact.email,
+              phone: obj[i].contact.phone,
               lat: obj[i].address.location.lat,
               lng: obj[i].address.location.lng
+
             }
             this.items.push(objeto)
           }
-           alert(response.data[0].address.location.lng)
+          /*  alert(response.data[0].address.location.lng) */
         })
     },
      sortByName() {

@@ -10,10 +10,10 @@
       prepend-icon="mdi-magnify"
       ></v-text-field>
     </v-col>
-    <v-col cols="4" md="3" sm="4">
+    <v-col cols="6" md="3" sm="4">
       <v-btn color="primary" @click="sortByName">Ordenar por Nombre</v-btn>
     </v-col>
-    <v-col cols="4" md="3" sm="4">
+    <v-col cols="6" md="3" sm="4">
       <v-btn color="success" @click="sortByRaiting">Ordenar por Calificación</v-btn>
     </v-col>
   </v-row>
